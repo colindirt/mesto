@@ -10,11 +10,10 @@
   background: rgba(0, 0, 0, 0.5);
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
 }
 
 @media screen and (max-width: 768px) {
-.popup {
-  margin-top: 2px;
-}
+  .popup {
+    margin-top: 2px;
+  }
 }
