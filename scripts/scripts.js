@@ -15,6 +15,10 @@ editButton.addEventListener ('click', popupToggle);
 
 closeButton.addEventListener ('click', popupToggle);
 
+document.getElementById("name").value = profileName.textContent;
+document.getElementById("job").value = profileJob.textContent;
+
+
 function handleFormSubmit (evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
