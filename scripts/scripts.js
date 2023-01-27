@@ -9,15 +9,13 @@ const profileJob = document.querySelector('.profile__job');
 
 const popupToggle = function() {
   popup.classList.toggle('popup_opened');
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
 }
 
 editButton.addEventListener ('click', popupToggle);
 
 closeButton.addEventListener ('click', popupToggle);
-
-document.getElementById("name").value = profileName.textContent;
-document.getElementById("job").value = profileJob.textContent;
-
 
 function handleFormSubmit (evt) {
     evt.preventDefault();
