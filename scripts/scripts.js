@@ -3,12 +3,12 @@ const popupAddCard = document.querySelector('.popup_type_card');
 const popupFullImg = document.querySelector('.popup_type_img');
 const popups = document.querySelectorAll('.popup');
 const editButton = document.querySelector('.profile__edit-button');
-const closeButton = document.querySelectorAll('.popup__close');
+const closeButtons = document.querySelectorAll('.popup__close');
 const addButton = document.querySelector('.profile__add-button');
-let formProfile = document.querySelector('.popup__form_profile');
-let formCard = document.querySelector('.popup__form_card');
-let nameInput = formProfile.querySelector('.popup__input_type_name');
-let jobInput = formProfile.querySelector('.popup__input_type_job');
+const formProfile = document.querySelector('.popup__form_profile');
+const formCard = document.querySelector('.popup__form_card');
+const nameInput = formProfile.querySelector('.popup__input_type_name');
+const jobInput = formProfile.querySelector('.popup__input_type_job');
 let inputDescription = formCard.querySelector('.popup__input_type_name');
 let inputLink = formCard.querySelector('.popup__input_type_job');
 const profileName = document.querySelector('.profile__name');
@@ -64,17 +64,20 @@ const closePopup = function (popup) {
 
 editButton.addEventListener ('click', openEditProfile);
 
-closeButton.forEach(buttonClose => {
-  buttonClose.addEventListener('click', closeButtonClick)
-})
+// closeButtons.forEach(buttonClose => {
+//   buttonClose.addEventListener('click', closeButtonClick)
+// })
 
-function closeButtonClick() {
-  closePopup(popupEditProfile)
-  closePopup(popupAddCard)
-  closePopup(popupFullImg)
-}
+// function closeButtonClick() {
+//   closePopup(popupEditProfile)
+//   closePopup(popupAddCard)
+//   closePopup(popupFullImg)
+// }
 
-
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
+});
 
 function handleFormSubmit (evt) {
   evt.preventDefault();
