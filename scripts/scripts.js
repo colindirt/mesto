@@ -2,9 +2,8 @@ const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupAddCard = document.querySelector('.popup_type_card');
 const popupFullImg = document.querySelector('.popup_type_img');
 const popups = document.querySelectorAll('.popup');
-const editButton = document.querySelector('.profile__edit-button');
-const closeButtons = document.querySelectorAll('.popup__close');
-const addButton = document.querySelector('.profile__add-button');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
 const formProfile = document.querySelector('.popup__form_profile');
 const formCard = document.querySelector('.popup__form_card');
 const nameInput = formProfile.querySelector('.popup__input_type_name');
@@ -20,39 +19,10 @@ const elements = document.querySelector('.elements');
 const titleElement = document.querySelector('.element__title');
 const imageElement = document.querySelector('.element__image');
 
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const openEditProfile = function() {
   openPopup(popupEditProfile)
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  document.addEventListener('keydown', closePopupOnEscape);
 }
 
 const openPopup = function (popup) {
@@ -65,17 +35,12 @@ const closePopup = function (popup) {
   document.removeEventListener('keydown', closePopupOnEscape);
 }
 
-editButton.addEventListener ('click', openEditProfile);
-
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
+buttonEdit.addEventListener ('click', openEditProfile);
 
 popups.forEach((item) => {
-  item.addEventListener("click", (event) => {
-    if (event.target === event.currentTarget) {
-      closePopup(item);
+  item.addEventListener("click", (evt) => {
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
+      closePopup(evt.currentTarget)
     }
   });
 });
@@ -96,10 +61,13 @@ function handleFormSubmit (evt) {
 
 formProfile.addEventListener('submit', handleFormSubmit);
 
-addButton.addEventListener('click', () => openPopup(popupAddCard))
+buttonAdd.addEventListener('click', () => openPopup(popupAddCard))
 
 const handleCardForm = function (evt) {
   evt.preventDefault()
+  const buttonElement = formCard.querySelector('.popup__submit');
+  buttonElement.classList.add('popup__submit_disabled');
+  buttonElement.disabled = true;
   const cardDescription = inputDescription.value;
   const cardLink = inputLink.value;
   renderCards(cardDescription, cardLink, elements);
@@ -121,13 +89,14 @@ const addCard = (cardsName, cardsImage) => {
   elementImage.src = cardsImage;
   elementImage.alt = cardsImage;
 
+
   const likeButton = element.querySelector('.element__like-button');
   likeButton.addEventListener('click', likeToggle);
 
   const deleteButton = element.querySelector('.element__delete-button');
   deleteButton.addEventListener('click', deleteCard);
 
-  element.querySelector('.element__img').addEventListener('click', (evt) => {
+  elementImage.addEventListener('click', (evt) => {
     openPopup(popupFullImg)
     popupImg.src = evt.target.src;
     popupImg.alt = evt.target.closest('.element').querySelector('.element__description').textContent
