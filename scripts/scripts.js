@@ -52,32 +52,40 @@ const openEditProfile = function() {
   openPopup(popupEditProfile)
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  document.addEventListener('keydown', closePopupOnEscape);
 }
 
 const openPopup = function (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupOnEscape);
 }
 
 const closePopup = function (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 editButton.addEventListener ('click', openEditProfile);
-
-// closeButtons.forEach(buttonClose => {
-//   buttonClose.addEventListener('click', closeButtonClick)
-// })
-
-// function closeButtonClick() {
-//   closePopup(popupEditProfile)
-//   closePopup(popupAddCard)
-//   closePopup(popupFullImg)
-// }
 
 closeButtons.forEach((button) => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
 });
+
+popups.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    if (event.target === event.currentTarget) {
+      closePopup(item);
+    }
+  });
+});
+
+const closePopupOnEscape = (evt) => {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector(".popup_opened");
+    closePopup(openedPopup);
+  }
+}
 
 function handleFormSubmit (evt) {
   evt.preventDefault();
@@ -136,6 +144,4 @@ const renderCards = (cardsName, cardsImage) => {
 initialCards.forEach((initialCard) => {
   renderCards(initialCard.name, initialCard.link, elements);
 });
-
-
 

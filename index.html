@@ -34,12 +34,14 @@
   <div class="popup__container">
     <button type="button" class="popup__close"></button>
     <h3 class="popup__title">Редактировать профиль</h3>
-    <form name="popup" class="popup__form popup__form_profile">
+    <form name="popup" class="popup__form popup__form_profile" novalidate>
       <label for="name" class="popup__field">
-        <input id="name" name="name" type="text" class="popup__input popup__input_type_name" placeholder="Имя">
+        <input id="name" name="name" type="text" class="popup__input popup__input_type_name" placeholder="Имя" minlength="2" maxlength="40" required>
+        <span class="name-error popup__input-error"></span>
       </label>
       <label for="job" class="popup__field">
-        <input id="job" name="job" type="text" class="popup__input popup__input_type_job" placeholder="Описание профиля">
+        <input id="job" name="job" type="text" class="popup__input popup__input_type_job" placeholder="Описание профиля" minlength="2" maxlength="200" required>
+        <span class="job-error popup__input-error"></span>
       </label>
       <button type="submit" class="popup__submit">Сохранить</button>
     </form>
@@ -50,12 +52,14 @@
   <div class="popup__container">
     <button type="button" class="popup__close"></button>
     <h3 class="popup__title">Новое место</h3>
-    <form name="popup" class="popup__form popup__form_card">
+    <form name="popup" class="popup__form popup__form_card" novalidate>
       <label for="description" class="popup__field">
-        <input id="description" name="description" type="text" class="popup__input popup__input_type_name" placeholder="Название">
+        <input id="description" name="description" type="text" class="popup__input popup__input_type_name" placeholder="Название" minlength="2" maxlength="30" required>
+        <span class="description-error popup__input-error"></span>
       </label>
       <label for="link" class="popup__field">
-        <input id="link" name="link" type="text" class="popup__input popup__input_type_job" placeholder="Ссылка на картинку">
+        <input id="link" name="link" class="popup__input popup__input_type_job" placeholder="Ссылка на картинку" type="url" required>
+        <span class="link-error popup__input-error"></span>
       </label>
       <button type="submit" class="popup__submit">Сохранить</button>
     </form>
@@ -82,5 +86,6 @@
 </template>
 
 <script src="./scripts/scripts.js"></script>
+<script src="./scripts/validate.js"></script>
 </body>
 </html>
