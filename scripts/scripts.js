@@ -61,17 +61,14 @@ formProfile.addEventListener('submit', handleFormSubmit);
 
 buttonAdd.addEventListener('click', () => openPopup(popupAddCard))
 
-import {disabledButtonElement} from './validate.js'
-
 const handleCardForm = function (evt) {
   evt.preventDefault()
-  disabledButtonElement(evt);
+  disabledButtonElement(evt)
   const cardDescription = inputDescription.value;
   const cardLink = inputLink.value;
   renderCards(cardDescription, cardLink, cardsContainer);
   evt.target.reset()
   closePopup(popupAddCard)
-
 }
 
 formCard.addEventListener('submit', handleCardForm);
