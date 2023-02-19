@@ -33,6 +33,16 @@ const setEventListeners = (formElement, item) => {
   });
 };
 
+const disabledButtonElement = (formElement) => {
+  const buttonList = Array.from(document.querySelectorAll(formElement.submitButtonSelector));
+  buttonList.forEach((buttonElement) => {
+    buttonElement.classList.add(formElement.inactiveButtonClass);
+    buttonElement.disabled = true;
+  })
+};
+
+export {disabledButtonElement}
+
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
@@ -41,8 +51,7 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement, item) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(item.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disabledButtonElement(item);
   } else {
     buttonElement.classList.remove(item.inactiveButtonClass);
     buttonElement.disabled = false;
@@ -54,7 +63,7 @@ const enableValidation = (item) => {
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
-  });
+    });
     setEventListeners(formElement, item);
   });
 };

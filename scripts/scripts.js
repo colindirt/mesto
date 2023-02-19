@@ -15,9 +15,7 @@ const profileJob = document.querySelector('.profile__job');
 const popupImg = document.querySelector('.popup__img');
 const popupImgDescription = document.querySelector('.popup__description');
 const cardTemplate = document.querySelector('#card').content;
-const elements = document.querySelector('.elements');
-const titleElement = document.querySelector('.element__title');
-const imageElement = document.querySelector('.element__image');
+const cardsContainer = document.querySelector('.elements');
 
 const openEditProfile = function() {
   openPopup(popupEditProfile)
@@ -63,16 +61,17 @@ formProfile.addEventListener('submit', handleFormSubmit);
 
 buttonAdd.addEventListener('click', () => openPopup(popupAddCard))
 
+import {disabledButtonElement} from './validate.js'
+
 const handleCardForm = function (evt) {
   evt.preventDefault()
-  const buttonElement = formCard.querySelector('.popup__submit');
-  buttonElement.classList.add('popup__submit_disabled');
-  buttonElement.disabled = true;
+  disabledButtonElement(evt);
   const cardDescription = inputDescription.value;
   const cardLink = inputLink.value;
-  renderCards(cardDescription, cardLink, elements);
+  renderCards(cardDescription, cardLink, cardsContainer);
   evt.target.reset()
   closePopup(popupAddCard)
+
 }
 
 formCard.addEventListener('submit', handleCardForm);
@@ -107,10 +106,10 @@ const addCard = (cardsName, cardsImage) => {
 }
 
 const renderCards = (cardsName, cardsImage) => {
-  elements.prepend(addCard(cardsName, cardsImage));
+  cardsContainer.prepend(addCard(cardsName, cardsImage));
 }
 
 initialCards.forEach((initialCard) => {
-  renderCards(initialCard.name, initialCard.link, elements);
+  renderCards(initialCard.name, initialCard.link, cardsContainer);
 });
 
