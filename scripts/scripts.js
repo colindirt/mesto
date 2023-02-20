@@ -61,13 +61,15 @@ formProfile.addEventListener('submit', handleFormSubmit);
 
 buttonAdd.addEventListener('click', () => openPopup(popupAddCard))
 
+
+
 const handleCardForm = function (evt) {
-  evt.preventDefault()
-  disabledButtonElement(evt)
+  evt.preventDefault();
   const cardDescription = inputDescription.value;
   const cardLink = inputLink.value;
   renderCards(cardDescription, cardLink, cardsContainer);
   evt.target.reset()
+  setEventListeners(popupAddCard, validationConfig);
   closePopup(popupAddCard)
 }
 
@@ -109,4 +111,3 @@ const renderCards = (cardsName, cardsImage) => {
 initialCards.forEach((initialCard) => {
   renderCards(initialCard.name, initialCard.link, cardsContainer);
 });
-
